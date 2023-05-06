@@ -1,0 +1,107 @@
+<linker>
+	<assembly fullname="UnityEngine">
+		<type fullname="UnityEngine.Object" preserve="nothing"/>
+		<type fullname="UnityEditor.VFXManager" preserve="nothing"/>
+		<type fullname="UnityEngine.Sprite" preserve="nothing"/>
+		<type fullname="UnityEngine.Texture2D" preserve="nothing"/>
+		<type fullname="UnityEditor.TagManager" preserve="nothing"/>
+		<type fullname="UnityEditor.MonoManager" preserve="nothing"/>
+		<type fullname="UnityEngine.Rendering.GraphicsSettings" preserve="nothing"/>
+		<type fullname="UnityEngine.Texture" preserve="nothing"/>
+		<type fullname="UnityEngine.Material" preserve="nothing"/>
+		<type fullname="UnityEditor.TimeManager" preserve="nothing"/>
+		<type fullname="UnityEditor.InputManager" preserve="nothing"/>
+		<type fullname="UnityEditor.PhysicsManager" preserve="nothing"/>
+		<type fullname="UnityEngine.TextAsset" preserve="nothing"/>
+		<type fullname="UnityEditor.MonoScript" preserve="nothing"/>
+		<type fullname="UnityEditor.AudioManager" preserve="nothing"/>
+		<type fullname="UnityEngine.Shader" preserve="nothing"/>
+		<type fullname="UnityEditor.Physics2DSettings" preserve="nothing"/>
+		<type fullname="UnityEditor.PlayerSettings" preserve="nothing"/>
+		<type fullname="UnityEngine.QualitySettings" preserve="nothing"/>
+		<type fullname="UnityEngine.FlareLayer" preserve="nothing"/>
+		<type fullname="UnityEngine.AudioBehaviour" preserve="nothing"/>
+		<type fullname="UnityEngine.AudioListener" preserve="nothing"/>
+		<type fullname="UnityEngine.Canvas" preserve="nothing"/>
+		<type fullname="UnityEngine.AnimationClip" preserve="nothing"/>
+		<type fullname="UnityEngine.Animator" preserve="nothing"/>
+		<type fullname="UnityEditor.Animations.AnimatorController" preserve="nothing"/>
+		<type fullname="UnityEngine.RuntimeAnimatorController" preserve="nothing"/>
+		<type fullname="UnityEngine.Font" preserve="nothing"/>
+		<type fullname="UnityEngine.Behaviour" preserve="nothing"/>
+		<type fullname="UnityEngine.CanvasGroup" preserve="nothing"/>
+		<type fullname="UnityEngine.RenderSettings" preserve="nothing"/>
+		<type fullname="UnityEngine.Transform" preserve="nothing"/>
+		<type fullname="UnityEngine.Camera" preserve="nothing"/>
+		<type fullname="UnityEngine.LightProbes" preserve="nothing"/>
+		<type fullname="UnityEngine.Component" preserve="nothing"/>
+		<type fullname="UnityEngine.GameObject" preserve="nothing"/>
+		<type fullname="UnityEngine.AudioClip" preserve="nothing"/>
+		<type fullname="UnityEngine.MonoBehaviour" preserve="nothing"/>
+		<type fullname="UnityEngine.RectTransform" preserve="nothing"/>
+		<type fullname="UnityEngine.Motion" preserve="nothing"/>
+		<type fullname="UnityEngine.CanvasRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.LightmapSettings" preserve="nothing"/>
+		<type fullname="UnityEngine.LightingSettings" preserve="nothing"/>
+	</assembly>
+	<assembly fullname="Assembly-CSharp">
+		<type fullname="GleyMobileAds.AdSettings" preserve="nothing"/>
+		<type fullname="dotmob.AdjustRectTransformForSafeArea" preserve="nothing"/>
+		<type fullname="dotmob.ButtonMusicToggle" preserve="nothing"/>
+		<type fullname="dotmob.ButtonSound" preserve="nothing"/>
+		<type fullname="dotmob.ButtonSoundToggle" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.CategoryListItem" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.CharacterGrid" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.GameManager" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.GameScreen" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.HighlightLetterButton" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.HighlightLetterPopup" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.HomeScene" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.LevelCompletedPopup" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.LevelListItem" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.LevelListScreen" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.MainScreen" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.RewardAdButton" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.SelectedWord" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.TopBar" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.UnlockCategoryPopup" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.WordList" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.WordListItem" preserve="nothing"/>
+		<type fullname="dotmob.HiddenWord.WordListLayoutGroup" preserve="nothing"/>
+		<type fullname="dotmob.IAPManager" preserve="nothing"/>
+		<type fullname="dotmob.IAPProductButton" preserve="nothing"/>
+		<type fullname="dotmob.IAPSettings" preserve="nothing"/>
+		<type fullname="dotmob.MobileAdsManager" preserve="nothing"/>
+		<type fullname="dotmob.MobileAdsSettings" preserve="nothing"/>
+		<type fullname="dotmob.OpenLinkButton" preserve="nothing"/>
+		<type fullname="dotmob.Popup" preserve="nothing"/>
+		<type fullname="dotmob.PopupManager" preserve="nothing"/>
+		<type fullname="dotmob.ProgressBar" preserve="nothing"/>
+		<type fullname="dotmob.SaveManager" preserve="nothing"/>
+		<type fullname="dotmob.ScreenManager" preserve="nothing"/>
+		<type fullname="dotmob.SettingsPopup" preserve="nothing"/>
+		<type fullname="dotmob.SoundManager" preserve="nothing"/>
+	</assembly>
+	<assembly fullname="GoogleMobileAds.Common">
+		<type fullname="GoogleMobileAds.Common.MobileAdsEventExecutor" preserve="nothing"/>
+	</assembly>
+	<assembly fullname="UnityEngine.UI">
+		<type fullname="UnityEngine.EventSystems.EventSystem" preserve="nothing"/>
+		<type fullname="UnityEngine.EventSystems.StandaloneInputModule" preserve="nothing"/>
+		<type fullname="UnityEngine.EventSystems.TouchInputModule" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.AspectRatioFitter" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.Button" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.CanvasScaler" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.ContentSizeFitter" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.GraphicRaycaster" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.GridLayoutGroup" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.HorizontalLayoutGroup" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.Image" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.LayoutElement" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.Mask" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.ScrollRect" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.Shadow" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.Text" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.VerticalLayoutGroup" preserve="nothing"/>
+	</assembly>
+</linker>
