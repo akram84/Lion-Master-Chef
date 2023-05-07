@@ -2,7 +2,8 @@ workflows:
   my-workflow:
     publishing:
       app_store_connect:
-        api_key: 6f0245cb7d2344859eac49a269cb2f9e
+        api_key: LionMasterChef
+        #api_key: 6f0245cb7d2344859eac49a269cb2f9e
         key_id: K8LHCHLN54
         issuer_id: 69a6de94-01d2-47e3-e053-5b8c7c11a4d1
         submit_to_testflight: true
