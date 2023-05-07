@@ -11,7 +11,7 @@ workflows:
         XCODE_SCHEME: "Unity-iPhone"
         BUNDLE_ID: "com.lion.ht"
         APP_STORE_APP_ID: 6448666144
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     triggering:
       events:
@@ -77,7 +77,7 @@ workflows:
         XCODE_WORKSPACE: "Unity-iPhone.xcworkspace" # <-- Put the name of your workspace here.
         XCODE_SCHEME: "Unity-iPhone" # <-- Put the name of your scheme here.
         APP_STORE_APP_ID: 6448666144
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     triggering:
       events:
@@ -206,7 +206,7 @@ workflows:
         XCODE_WORKSPACE: "Unity-iPhone.xcworkspace" # <-- Put the name of your workspace here.
         XCODE_SCHEME: "Unity-iPhone" # <-- Put the name of your scheme here.
         APP_STORE_APP_ID: 6448666144
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     triggering:
       events:
@@ -253,7 +253,7 @@ workflows:
       groups:
         - ios_creds # <-- (group contains variables: APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_PRIVATE_KEY, CERTIFICATE_PRIVATE_KEY)
         - fastlane_credentials # <-- (group contains variables: MATCH_SSH_KEY, MATCH_KEYCHAIN, MATCH_PASSWORD)
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     scripts:
       # - gem install bundler:2.2.27
@@ -273,7 +273,7 @@ workflows:
         BUNDLE_ID: "com.lion.ht"
         APP_STORE_APP_ID: 6448666144
       flutter: 2.10.0
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     scripts:
       - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
@@ -349,7 +349,7 @@ workflows:
         BUNDLE_ID: com.lion.ht
         ENTRY_POINT: lib/main_dev.dart
       flutter: 2.10.0
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     triggering:
       events:
@@ -419,7 +419,7 @@ workflows:
         BUNDLE_ID: com.lion.ht.prod
         ENTRY_POINT: lib/main_prod.dart
       flutter: 2.10.0
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     triggering:
       events:
@@ -486,7 +486,7 @@ workflows:
         BUNDLE_ID: "com.lion.ht"
         APP_STORE_APP_ID: 6448666144
       node: 16.11.1
-      xcode: latest
+      xcode: 13.3.1
       cocoapods: default
     triggering:
       events:
@@ -593,14 +593,14 @@ workflows:
     name: Native Android
     max_build_duration: 120
     instance_type: mac_mini_m1
-    working_directory: android/android-native-quick-start
+    working_directory: /Users/akramkhunaizi/Documents/GitHub/Lion-Master-Chef
     environment:
       android_signing:
         - keystore_reference
       groups:
         - google_play
       vars:
-        PACKAGE_NAME: "io.codemagic.androidquicksample"
+        PACKAGE_NAME: "com.lion.ht"
     scripts:
       - name: Set Android SDK location
         script: |
@@ -620,8 +620,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - user_1@example.com
-          - user_2@example.com
+          - akram84@em.com
         notify:
           success: true
           failure: false
