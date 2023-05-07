@@ -1,5 +1,4 @@
 workflows:
-  my-workflow:
     publishing:
       app_store_connect:
         api_key: LionMasterChef
