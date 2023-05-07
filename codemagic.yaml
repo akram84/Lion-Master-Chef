@@ -23,9 +23,7 @@ workflows:
           include: true
           source: true
     scripts:
-      - name: Install pods
-        script: |
-          pod install
+     
       - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
         script: |
           keychain initialize
@@ -89,9 +87,7 @@ workflows:
           include: true
           source: true
     scripts:
-      - name: Install pods
-        script: |
-          pod install
+
       - name: Initialize keychain to be used for codesigning using Codemagic CLI 'keychain' command
         script: |
           keychain initialize
@@ -163,9 +159,7 @@ workflows:
           include: true
           source: true
     scripts:
-      - name: Install pods
-        script: |
-          pod install
+
       - name: Increment build number
         script: |
           agvtool new-version -all $(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID") + 1))
@@ -298,9 +292,7 @@ workflows:
         script: |
           flutter test
         ignore_failure: true
-      - name: Install pods
-        script: |
-          find . -name "Podfile" -execdir pod install \;
+
       - name: Flutter build ipa and automatic versioning
         script: |
           flutter build ipa --release \
