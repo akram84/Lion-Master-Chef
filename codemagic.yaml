@@ -10,6 +10,40 @@ workflows:
         beta_groups:
           - Beta Testers
 
+ios-workflow:
+    name: iOS Workflow 
+    # ....
+    environment:
+      ios_signing:
+        distribution_type: app_store # or: ad_hoc | development | enterprise
+        bundle_identifier: com.lion.ht
+ scripts:
+    # ... your dependencies installation
+    
+    - name: Set up code signing settings on Xcode project
+      script: xcode-project use-profiles
+    
+    # ... your build commands
+
+ios-native:
+  environment:
+    vars:
+      BUNDLE_ID: "com.lion.ht"
+      XCODE_WORKSPACE: "Unity-iPhone.xcworkspace" # <-- Name of your Xcode workspace
+      XCODE_SCHEME: "Unity-iPhone" # <-- Name of your Xcode scheme
+scripts:
+  # ...
+  - name: Build ipa for distribution
+    script: | 
+      xcode-project build-ipa \
+        --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+        --scheme "$XCODE_SCHEME"
+artifacts:
+  - build/ios/ipa/*.ipa
+  - /tmp/xcodebuild_logs/*.log
+  - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+  - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+
   ios-native-workflow:
     name: iOS Native
     max_build_duration: 120
