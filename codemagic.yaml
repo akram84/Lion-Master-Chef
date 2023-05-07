@@ -8,9 +8,9 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: "com.ht.lionmasterchef"
+        bundle_identifier: "com.lion.ht"
       vars:
-        BUNDLE_ID: "com.ht.lionmasterchef"
+        BUNDLE_ID: "com.lion.ht"
         XCODE_WORKSPACE: "Unity-iPhone.xcworkspace" # <-- Put the name of your Xcode workspace here
         XCODE_SCHEME: "Unity-iPhone" # <-- Put the name of your Xcode scheme here
         APP_ID: 6448666144
