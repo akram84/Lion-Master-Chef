@@ -22,25 +22,7 @@ workflows:
         - pattern: "develop"
           include: true
           source: true
-    scripts:
-     
-      - name: Fetch signing files
-        script: |
-          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE --create
 
-      - name: Set up code signing settings on Xcode project
-        script: |
-          xcode-project use-profiles
-      - name: Increment build number
-        script: |
-          agvtool new-version -all $(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID") + 1))
-      - name: Build ipa for distribution
-        working_directory: ios/ios-automatic-code-signing-demo-project
-        script: |
-          xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       app_store_connect: # https://docs.codemagic.io/publishing-yaml/distribution
         api_key: LionMasterChef # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
@@ -258,27 +240,7 @@ workflows:
       flutter: 2.10.0
       xcode: 13.3.1
       cocoapods: default
-    scripts:
-      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
-        script: |
-          keychain initialize
-      - name: Fetch signing files
-        script: |
-          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
 
-      - name: Set up code signing settings on Xcode project
-        script: |
-          xcode-project use-profiles
-      - name: Get Flutter packages
-        script: |
-          flutter packages pub get
-      - name: Flutter analyze
-        script: |
-          flutter analyze
-      - name: Flutter unit tests
-        script: |
-          flutter test
-        ignore_failure: true
 
       - name: Flutter build ipa and automatic versioning
         script: |
@@ -345,21 +307,6 @@ workflows:
         script: |
           find . -name "Podfile" -execdir pod install \;
 
-      - name: Fetch signing files
-        script: |
-          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-
-      - name: Set up code signing settings on Xcode project
-        script: |
-          xcode-project use-profiles
-      - name: Flutter build ipa and automatic versioning
-        script: |
-          flutter build ipa --release \
-          --build-name=1.0.0 \
-          --build-number=$(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_ID") + 1)) \
-          --export-options-plist=/Users/builder/export_options.plist \
-          --flavor="$XCODE_SCHEME" \
-          -t "$ENTRY_POINT"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
@@ -403,34 +350,7 @@ workflows:
         - pattern: "main"
           include: true
           source: true
-    scripts:
-      - name: Get Flutter Packages
-        script: |
-          flutter packages pub get
-      - name: Pod install
-        script: |
-          find . -name "Podfile" -execdir pod install \;
 
-      - name: Fetch signing files
-        script: |
-          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-
-      - name: Set up code signing settings on Xcode project
-        script: |
-          xcode-project use-profiles
-      - name: Flutter build ipa and automatic versioning
-        script: |
-          flutter build ipa --release \
-          --build-name=1.0.0 \
-          --build-number=$(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID") + 1)) \
-          --export-options-plist=/Users/builder/export_options.plist \
-          --flavor="$XCODE_SCHEME" \
-          -t "$ENTRY_POINT"
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - flutter_drive.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       email:
         recipients:
@@ -476,25 +396,6 @@ workflows:
         script: |
           cd ios && pod install
 
-      - name: Fetch signing files
-        script: |
-          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-
-      - name: Increment build number
-        script: |
-          set -ex
-          cd ios && agvtool new-version -all $(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID") + 1))
-      - name: Set up code signing settings on Xcode project
-        script: |
-          xcode-project use-profiles --warn-only
-      - name: Build ipa for distribution
-        script: |
-          xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       # See the following link for details about email publishing - https://docs.codemagic.io/publishing-yaml/distribution/#email
       email:
