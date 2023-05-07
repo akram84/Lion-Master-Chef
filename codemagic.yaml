@@ -7,19 +7,19 @@ workflows:
       groups:
         - ios_creds # <-- (group contains variables: APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_PRIVATE_KEY, CERTIFICATE_PRIVATE_KEY)
       vars:
-        XCODE_WORKSPACE: "Unity-iPhone.xcworkspace"
-        XCODE_SCHEME: "Unity-iPhone"
-        BUNDLE_ID: "com.lion.ht"
-        APP_STORE_APP_ID: 6448666144
-        xcode: 14.2
-        environment:
-         cocoapods: 1.10.2
-         ios_signing:
+          XCODE_WORKSPACE: "Unity-iPhone.xcworkspace"
+          XCODE_SCHEME: "Unity-iPhone"
+          BUNDLE_ID: "com.lion.ht"
+          APP_STORE_APP_ID: 6448666144
+           xcode: 14.2
+           environment:
+        cocoapods: 1.10.2
+        ios_signing:
            distribution_type: app_store
            bundle_identifier: com.lion.ht
-      triggering:
-         events:
-           - push
+  triggering:
+   events:
+    - push
 Expand All	@@ -31,33 +24,29 @@ workflows:
              source: true
 scripts:
@@ -40,13 +40,13 @@ scripts:
            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
            
-          app_store_connect:
+           app_store_connect:
               # Use referenced App Store Connect API key to authenticate binary upload
             auth: integration
             submit_to_testflight: true                     # Optional boolean, defaults to false. Whether or not to submit the uploaded build to TestFlight beta review. Required for distributing to beta groups. Note: This action is performed during post-processing.
             # beta_groups:                                  # Specify the names of beta tester groups that will get access to the build once it has passed beta review. 
             #      - group name 1
             #      - group name 2                      
-          email:
+           email:
             recipients:
-            -akram84@me.com
+             -akram84@me.com
