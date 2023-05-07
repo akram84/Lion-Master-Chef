@@ -7,16 +7,16 @@ workflows:
       groups:
         - ios_creds # <-- (group contains variables: APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_PRIVATE_KEY, CERTIFICATE_PRIVATE_KEY)
       vars:
-         XCODE_WORKSPACE: "Unity-iPhone.xcworkspace"
-         XCODE_SCHEME: "Unity-iPhone"
-         BUNDLE_ID: "com.lion.ht"
-         APP_STORE_APP_ID: 6448666144
-         xcode: 14.3
+        XCODE_WORKSPACE: "Unity-iPhone.xcworkspace"
+        XCODE_SCHEME: "Unity-iPhone"
+        BUNDLE_ID: "com.lion.ht"
+        APP_STORE_APP_ID: 6448666144
+      xcode: 14.2
          cocoapods: 1.12.1
          ios_signing:
            distribution_type: app_store
            bundle_identifier: com.lion.ht
-       triggering:
+      triggering:
          events:
            - push
 Expand All	@@ -31,33 +24,29 @@ workflows:
