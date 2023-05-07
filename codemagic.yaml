@@ -16,13 +16,6 @@ ios-workflow:
       ios_signing:
         distribution_type: app_store # or: ad_hoc | development | enterprise
         bundle_identifier: com.lion.ht
- scripts:
-    # ... your dependencies installation
-    
-    - name: Set up code signing settings on Xcode project
-      script: xcode-project use-profiles
-    
-    # ... your build commands
 
 ios-native:
   environment:
