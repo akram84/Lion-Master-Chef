@@ -10,7 +10,10 @@ workflows:
         XCODE_WORKSPACE: "Unity-iPhone.xcworkspace"
         XCODE_SCHEME: "Unity-iPhone"
         BUNDLE_ID: "com.lion.ht"
-         APP_STORE_APP_ID: 6448666144
+        APP_STORE_APP_ID: 6448666144
+        xcode: 14.2
+        environment:
+         cocoapods: 1.10.2
          ios_signing:
            distribution_type: app_store
            bundle_identifier: com.lion.ht
@@ -19,9 +22,9 @@ workflows:
            - push
 Expand All	@@ -31,33 +24,29 @@ workflows:
              source: true
-       scripts:
+scripts:
          - name: Codemagic CLI Tools build
-         script: pip3 install codemagic-cli-tools # The Codemagic CLI tools are already installed on Codemagic servers
+           script: pip3 install codemagic-cli-tools # The Codemagic CLI tools are already installed on Codemagic servers
          - name: Initialize Pods 
            script: pod init && pod install
          - name: Set up provisioning profiles settings on Xcode project
@@ -32,11 +35,11 @@ Expand All	@@ -31,33 +24,29 @@ workflows:
            script: xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME" --archive-xcargs "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=" --archive-flags "-destination 'generic/platform=iOS' CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=NO"
          - name: Publish on App Store
            script: app-store-connect publish --beta-build-localizations=@file:whats_new.json
-            artifacts:
-         - build/ios/ipa/*.ipa
-         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-      
+           artifacts:
+           - build/ios/ipa/*.ipa
+           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+           
           app_store_connect:
               # Use referenced App Store Connect API key to authenticate binary upload
             auth: integration
