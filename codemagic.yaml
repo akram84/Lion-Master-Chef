@@ -24,15 +24,10 @@ workflows:
           source: true
     scripts:
      
-      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
-        script: |
-          keychain initialize
       - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE --create
-      - name: Use system default keychain
-        script: |
-          keychain add-certificates
+
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -88,9 +83,6 @@ workflows:
           source: true
     scripts:
 
-      - name: Initialize keychain to be used for codesigning using Codemagic CLI 'keychain' command
-        script: |
-          keychain initialize
       - name: set up provisioning profiles
         script: |
           PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
@@ -98,10 +90,7 @@ workflows:
           PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
           echo ${CM_PROVISIONING_PROFILE} | base64 --decode > "$PROFILE_PATH"
           echo "Saved provisioning profile $PROFILE_PATH"
-      - name: Add signing certificate to keychain
-        script: |
-          echo $CM_CERTIFICATE | base64 --decode > /tmp/certificate.p12
-          keychain add-certificates --certificate /tmp/certificate.p12
+
       - name: Increment build number
         script: |
           agvtool new-version -all $(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID") + 1))
@@ -276,9 +265,7 @@ workflows:
       - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-      - name: Use system default keychain
-        script: |
-          keychain add-certificates
+
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -357,15 +344,11 @@ workflows:
       - name: Pod install
         script: |
           find . -name "Podfile" -execdir pod install \;
-      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
-        script: |
-          keychain initialize
+
       - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-      - name: Add certs to keychain
-        script: |
-          keychain add-certificates
+
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -427,15 +410,11 @@ workflows:
       - name: Pod install
         script: |
           find . -name "Podfile" -execdir pod install \;
-      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
-        script: |
-          keychain initialize
+
       - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-      - name: Add certs to keychain
-        script: |
-          keychain add-certificates
+
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -496,15 +475,11 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
-      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
-        script: |
-          keychain initialize
+
       - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-      - name: Use system default keychain
-        script: |
-          keychain add-certificates
+
       - name: Increment build number
         script: |
           set -ex
