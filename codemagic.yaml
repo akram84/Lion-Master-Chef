@@ -1,56 +1,79 @@
 workflows:
-  ios-automatic-code-signing:
-    name: Lion Master Chef
-    instance_type: mac_pro
-    working_directory: /Users/akramkhunaizi/Documents/GitHub/Lion-Master-Chef
-    environment:
-      groups:
-        - ios_creds # <-- (group contains variables: APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_PRIVATE_KEY, CERTIFICATE_PRIVATE_KEY)
-      vars:
-          XCODE_WORKSPACE: "Unity-iPhone.xcworkspace"
-          XCODE_SCHEME: "Unity-iPhone"
-          BUNDLE_ID: "com.lion.ht"
-          APP_STORE_APP_ID: 6448666144
-           xcode: 14.2
-           environment:
-        cocoapods: 1.10.2
-        ios_signing:
-           distribution_type: app_store
-           bundle_identifier: com.lion.ht
-  triggering:
-   events:
-    - push
-Expand All	@@ -31,33 +24,29 @@ workflows:
-             source: true
-scripts:
-         - name: Codemagic CLI Tools build
-           script: pip3 install codemagic-cli-tools # The Codemagic CLI tools are already installed on Codemagic servers
-         - name: Initialize Pods 
-           script: pod init && pod install
-         - name: Set up provisioning profiles settings on Xcode project
-           script: xcode-project use-profiles
-         - name: Increment build number
-           script: agvtool new-version -all $(($(app-store-connect get-latest-build-number "$APP_STORE_APP_ID") + 1))
-         - name: Create archive
-           script: xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME" --archive-xcargs "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=" --archive-flags "-destination 'generic/platform=iOS' CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=NO"
-         - name: Publish on App Store
-           script: app-store-connect publish --beta-build-localizations=@file:whats_new.json
-           artifacts:
-           - build/ios/ipa/*.ipa
-           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-           
-           app_store_connect: LionMasterChef
-           api_key: LionMasterChef
-        #api_key: 6f0245cb7d2344859eac49a269cb2f9e
-           key_id: K8LHCHLN54
-           issuer_id: 69a6de94-01d2-47e3-e053-5b8c7c11a4d1
-              # Use referenced App Store Connect API key to authenticate binary upload
-            auth: integration
+    ios-workflow:
+      name: LionMasterChef
+      environment:
+        groups:
+        # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
+          - app_store_credentials  <-- (69a6de94-01d2-47e3-e053-5b8c7c11a4d1, K8LHCHLN54, LionMasterChef)
+            # APP_STORE_CONNECT_ISSUER_ID <-- Put your App Store Connect Issuer Id here 
+            # APP_STORE_CONNECT_KEY_IDENTIFIER <-- Put your App Store Connect Key Identifier here 
+            # APP_STORE_CONNECT_PRIVATE_KEY <-- Put your App Store Connect Private Key here
+            # See the following link for more details - https://docs.codemagic.io/code-signing-yaml/signing-ios/
+            # https://appstoreconnect.apple.com/access/api
+          - certificate_credentials  <-- (LionMasterChef - Put your Certificate Private Key here)
+          - other
+        vars:
+          XCODE_WORKSPACE: "Unity-iPhone.xcworkspace" # <-- Put the name of your workspace here.
+          XCODE_SCHEME: "Unity-iPhone" # <-- Put the name of your scheme here.
+          BUNDLE_ID: "com.lion.ht" # <-- Put your Bundle Id here.
+          APP_STORE_APP_ID: 6448666144 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
+        xcode: latest
+        cocoapods: default
+      triggering:
+        events:
+          - push
+          - tag
+          - pull_request
+        branch_patterns:
+          - pattern: 'develop'
+            include: true
+            source: true
+      scripts:
+        - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
+          script: |
+            keychain initialize
+        - name: Fetch signing files
+          script: |
+            app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE --create
+        - name: Use system default keychain
+          script: |
+            keychain add-certificates
+        - name: Set up code signing settings on Xcode project
+          script: |
+            xcode-project use-profiles
+        - name: Increment build number
+          script: |
+            #!/bin/sh
+            set -e
+            set -x
+            cd $FCI_BUILD_DIR
+            # agvtool new-version -all $(($BUILD_NUMBER + 1))
+            agvtool new-version -all $(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID") + 1))
+        - name: Build ipa for distribution
+          script: |
+            xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+      artifacts:
+        - build/ios/ipa/*.ipa
+        - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      publishing:
+        app_store_connect:   # https://docs.codemagic.io/publishing-yaml/distribution              
+            api_key: LionMasterChef         # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
+            key_id: K8LHCHLN54       # Alphanumeric value that identifies the API key, can also reference environment variable such as $APP_STORE_CONNECT_KEY_IDENTIFIER
+            issuer_id: 69a6de94-01d2-47e3-e053-5b8c7c11a4d1         # Alphanumeric value that identifies who created the API key, can also reference environment variable such as $APP_STORE_CONNECT_ISSUER_ID
             submit_to_testflight: true                     # Optional boolean, defaults to false. Whether or not to submit the uploaded build to TestFlight beta review. Required for distributing to beta groups. Note: This action is performed during post-processing.
             # beta_groups:                                  # Specify the names of beta tester groups that will get access to the build once it has passed beta review. 
-            #      - group name 1
-            #      - group name 2                      
-           email:
+            #       - group name 1
+            #       - group name 2
+        email:
             recipients:
-             -akram84@me.com
+              - akram84@me.com
+              
+            notify:
+              success: true
+              failure: true
+        slack:
+            channel: '#builds'
+            notify_on_build_start: true    # To receive a notification when a build starts
+            notify:
+              success: false               # To not receive a notification when a build succeeds
+              failure: false               # To not receive a notification when a build fails
