@@ -40,7 +40,11 @@ scripts:
            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
            
-           app_store_connect:
+           app_store_connect: LionMasterChef
+           api_key: LionMasterChef
+        #api_key: 6f0245cb7d2344859eac49a269cb2f9e
+           key_id: K8LHCHLN54
+          issuer_id: 69a6de94-01d2-47e3-e053-5b8c7c11a4d1
               # Use referenced App Store Connect API key to authenticate binary upload
             auth: integration
             submit_to_testflight: true                     # Optional boolean, defaults to false. Whether or not to submit the uploaded build to TestFlight beta review. Required for distributing to beta groups. Note: This action is performed during post-processing.
